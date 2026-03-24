@@ -88,13 +88,13 @@ export default function ChatPage() {
       </ScrollArea>
           
       {/* Input */}
-      <div className=" z-40 p-4 border rounded-4xl flex gap-2 fixed bottom-4 left-1/2 -translate-x-1/2 w-[100vw] md:w-[70vw] bg-white-30 backdrop-blur-3xl">
+      <div className=" z-40 p-4 border dark:border-red-500 rounded-4xl flex gap-2 fixed bottom-4 left-1/2 -translate-x-1/2 w-[100vw] md:w-[70vw] bg-white-30 backdrop-blur-3xl">
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask anything..."
         />
-        <Button onClick={sendMessage}>Send</Button>
+        <Button className="dark:bg-red-500 dark:text-white" onClick={sendMessage}>Send</Button>
         <ModeToggle />
         <Button
           onClick={handleNewChat}

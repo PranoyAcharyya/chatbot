@@ -94,7 +94,7 @@ export default function ChatPage() {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask anything..."
         />
-        <Button className="dark:bg-red-500 dark:text-white" onClick={sendMessage}>Send</Button>
+        <Button className="dark:bg-red-500/20 dark:text-white" onClick={sendMessage}>Send</Button>
         <ModeToggle />
         <Button
           onClick={handleNewChat}

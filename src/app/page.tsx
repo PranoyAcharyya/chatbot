@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ReactMarkdown from "react-markdown";
+import { ModeToggle } from "@/components/themeToggle";
+
 
 export default function ChatPage() {
   const bottomRef = useRef<HTMLDivElement | null>(null);
@@ -45,9 +47,10 @@ export default function ChatPage() {
 
   return (
     <div className="h-screen flex flex-col container mx-auto">
+
       {/* Chat Area */}
       <ScrollArea className="flex-1">
-  <div className="p-4 space-y-4 h-full flex flex-col">
+  <div className="p-4 mb-20 space-y-4 h-full flex flex-col">
 
     {messages.length === 0 ? (
       <div className="flex-1 flex items-center justify-center text-gray-400 text-lg min-h-screen">
@@ -82,13 +85,14 @@ export default function ChatPage() {
 </ScrollArea>
 
       {/* Input */}
-      <div className="p-4 border-t flex gap-2 fixed bottom-0 left-0 w-full bg-white">
+      <div className="p-4 border rounded-4xl flex gap-2 fixed bottom-4 left-1/2 -translate-x-1/2 w-[100vw] md:w-[70vw] bg-white-30 backdrop-blur-3xl">
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask anything..."
         />
         <Button onClick={sendMessage}>Send</Button>
+        <ModeToggle/>
       </div>
     </div>
   );

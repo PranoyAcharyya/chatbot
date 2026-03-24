@@ -51,7 +51,7 @@ export default function ChatPage() {
 
     {messages.length === 0 ? (
       <div className="flex-1 flex items-center justify-center text-gray-400 text-lg min-h-screen">
-        <h1 className="text-7xl">What’s on your mind today?</h1>
+        <h1 className="text-2xl md:text-5xl lg:text-7xl">What’s on your mind today?</h1>
       </div>
     ) : (
       <>

@@ -9,7 +9,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import ReactMarkdown from "react-markdown";
 import { ModeToggle } from "@/components/themeToggle";
 
-
 export default function ChatPage() {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
@@ -45,44 +44,47 @@ export default function ChatPage() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const handleNewChat = () => {
+    setMessages([]);
+  };
+
   return (
     <div className="h-screen flex flex-col container mx-auto">
-
       {/* Chat Area */}
       <ScrollArea className="flex-1">
-  <div className="p-4 mb-20 space-y-4 h-full flex flex-col">
+        <div className="p-4 mb-20 space-y-4 h-full flex flex-col">
+          {messages.length === 0 ? (
+            <div className="flex-1 flex items-center justify-center text-gray-400 text-lg min-h-screen">
+              <h1 className="text-2xl md:text-5xl lg:text-7xl dark:text-red-400">
+                What’s on your mind today?
+              </h1>
+            </div>
+          ) : (
+            <>
+              {messages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`max-w-[70%] p-3 rounded-xl text-sm ${
+                    msg.role === "user"
+                      ? "bg-black dark:bg-red-500 text-white ml-auto"
+                      : "bg-muted"
+                  }`}
+                >
+                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                </div>
+              ))}
 
-    {messages.length === 0 ? (
-      <div className="flex-1 flex items-center justify-center text-gray-400 text-lg min-h-screen">
-        <h1 className="text-2xl md:text-5xl lg:text-7xl">What’s on your mind today?</h1>
-      </div>
-    ) : (
-      <>
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={`max-w-[70%] p-3 rounded-xl text-sm ${
-              msg.role === "user"
-                ? "bg-black text-white ml-auto"
-                : "bg-muted"
-            }`}
-          >
-            <ReactMarkdown>{msg.content}</ReactMarkdown>
-          </div>
-        ))}
+              {loading && (
+                <div className="bg-muted p-3 rounded-xl w-fit text-sm">
+                  Thinking...
+                </div>
+              )}
 
-        {loading && (
-          <div className="bg-muted p-3 rounded-xl w-fit text-sm">
-            Thinking...
-          </div>
-        )}
-
-        <div ref={bottomRef} />
-      </>
-    )}
-
-  </div>
-</ScrollArea>
+              <div ref={bottomRef} />
+            </>
+          )}
+        </div>
+      </ScrollArea>
 
       {/* Input */}
       <div className="p-4 border rounded-4xl flex gap-2 fixed bottom-4 left-1/2 -translate-x-1/2 w-[100vw] md:w-[70vw] bg-white-30 backdrop-blur-3xl">
@@ -92,7 +94,14 @@ export default function ChatPage() {
           placeholder="Ask anything..."
         />
         <Button onClick={sendMessage}>Send</Button>
-        <ModeToggle/>
+        <ModeToggle />
+        <Button
+          onClick={handleNewChat}
+          variant="outline"
+          disabled={messages.length === 0}
+        >
+          New Chat
+        </Button>
       </div>
     </div>
   );

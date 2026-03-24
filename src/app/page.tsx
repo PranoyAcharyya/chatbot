@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ReactMarkdown from "react-markdown";
 import { ModeToggle } from "@/components/themeToggle";
+import { AuroraText } from "@/components/ui/aurora-text"
 
 export default function ChatPage() {
   const bottomRef = useRef<HTMLDivElement | null>(null);
@@ -49,14 +50,14 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="h-screen flex flex-col container mx-auto">
+    <div className="h-screen flex flex-col container mx-auto relative">
       {/* Chat Area */}
       <ScrollArea className="flex-1">
         <div className="p-4 mb-20 space-y-4 h-full flex flex-col">
           {messages.length === 0 ? (
             <div className="flex-1 flex items-center justify-center text-gray-400 text-lg min-h-screen">
               <h1 className="text-2xl md:text-5xl lg:text-7xl dark:text-red-400">
-                What’s on your mind today?
+                What’s on your <AuroraText>mind</AuroraText> today?
               </h1>
             </div>
           ) : (
@@ -85,9 +86,9 @@ export default function ChatPage() {
           )}
         </div>
       </ScrollArea>
-
+          
       {/* Input */}
-      <div className="p-4 border rounded-4xl flex gap-2 fixed bottom-4 left-1/2 -translate-x-1/2 w-[100vw] md:w-[70vw] bg-white-30 backdrop-blur-3xl">
+      <div className=" z-40 p-4 border rounded-4xl flex gap-2 fixed bottom-4 left-1/2 -translate-x-1/2 w-[100vw] md:w-[70vw] bg-white-30 backdrop-blur-3xl">
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}

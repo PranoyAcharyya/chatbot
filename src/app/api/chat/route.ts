@@ -10,7 +10,14 @@ export async function POST(req: Request) {
     const { messages } = await req.json();
     const response = await openai.chat.completions.create({
       model: "openai/gpt-oss-120b",
-      messages,
+      messages: [
+        {
+          role: "system",
+          content:
+            "Answer clearly like ChatGPT. Use short paragraphs, headings, and bullet points. Avoid long blocks of text.",
+        },
+        ...messages,
+      ],
     });
     return Response.json({
       reply: response.choices[0].message.content,
